@@ -1,41 +1,40 @@
-//declaracion de variables
-let num1 = parseInt(prompt("dime un monto"));
-let metodoPago = prompt(
-  "¿Que metodo de pago utilizará? efectivo, tarjeta o transferencia"
-);
-let efectivo = 0.8;
-let credito = 0.9;
-let transfer = 1;
+// Array de productos
+const productos = [
+  { id: 1, nombre: "Campera", precio: 800 },
+  { id: 2, nombre: "Remera", precio: 500 },
+  { id: 3, nombre: "Pantalon", precio: 1500 },
+];
 
-// metodo con condicional if
+mostrarProductos();
+comprar();
 
-function contado(num1) {
-  let resultado = num1 * efectivo;
-  alert(`el monto total de ${num1} pagando con efectivo es de $${resultado}`);
+// Función para mostrar los productos
+function mostrarProductos() {
+  productos.forEach(function (producto) {
+    alert(producto.id + "." + producto.nombre + " - $" + producto.precio);
+  });
 }
 
-function tarjeta(num1) {
-  let resultado = num1 * credito;
-  alert(`el monto total de ${num1} pagando con tarjeta es de $${resultado}`);
-}
-
-function transferencia(num1) {
-  let resultado = num1 * transfer;
-  alert(
-    `el monto total de ${num1} pagando con transferencia es de $${resultado}`
+// Función para realizar la compra
+function comprar() {
+  let productoId = parseInt(
+    prompt("Ingresa el id del producto que deseas comprar:")
   );
-}
+  let cantidad = parseInt(prompt("Ingresa la cantidad que deseas comprar:"));
 
-if (metodoPago === "efectivo") {
-  contado(num1);
-}
+  // Buscar el producto en el array
+  const producto = productos.find(function (item) {
+    return item.id === productoId;
+  });
 
-if (metodoPago === "tarjeta") {
-  tarjeta(num1, credito);
-}
-
-if (metodoPago === "transferencia") {
-  transferencia(num1, transfer);
-} else {
-  alert("no ingresaste ningún metodo de pago, vuelve a intentar");
+  // Validar si el producto existe
+  if (producto) {
+    let total = producto.precio * cantidad;
+    alert("--- Detalles de la Compra ---");
+    alert("Producto: " + producto.nombre);
+    alert("Cantidad: " + cantidad);
+    alert("Total a pagar: $" + total);
+  } else {
+    alert("El producto seleccionado no existe.");
+  }
 }
